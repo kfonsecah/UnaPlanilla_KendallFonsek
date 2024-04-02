@@ -8,7 +8,7 @@ dependency-reduced-pom.xml
 Tarea1_KendallFonseca_EmmanuelGamboa.iml
 
 # Ignorar archivos específicos de macOS
-.DS_Store
+*.DS_Store
 
 # Ignorar archivos de compilación y salida de Maven
 *target/
