@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="cr.ac.una.unaplanilla.controller.EmpleadosController">
+   <children>
+      <Label fx:id="empleados" layoutX="255.0" layoutY="140.0" text="EMPLEADOS" />
+      <MFXTextField fx:id="txtField" layoutX="168.0" layoutY="163.0" prefHeight="35.0" prefWidth="276.0" />
+   </children>
+</AnchorPane>
