@@ -1,13 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXRadioButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="cr.ac.una.unaplanilla.controller.EmpleadosController">
+<AnchorPane id="AnchorPane" prefHeight="434.0" prefWidth="634.0" styleClass="jfx-panel-fondo" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.unaplanilla.controller.EmpleadosController">
    <children>
-      <Label fx:id="empleados" layoutX="255.0" layoutY="140.0" text="EMPLEADOS" />
-      <MFXTextField fx:id="txtField" layoutX="168.0" layoutY="163.0" prefHeight="35.0" prefWidth="276.0" />
+      <AnchorPane prefHeight="416.0" prefWidth="605.0" style="-fx-background-color: #EDEBF5;" stylesheets="@Style.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <VBox prefHeight="294.0" prefWidth="303.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label styleClass="jfx-titulo-label" text="Control de Empleados">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="220.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox prefHeight="384.0" prefWidth="604.0" styleClass="jfx-contenedor-principal">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <MFXTextField floatMode="BORDER" floatingText="ID" prefHeight="1.0" prefWidth="130.0">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </MFXTextField>
+                              <MFXTextField floatMode="BORDER" floatingText="Nombre" prefHeight="51.0" prefWidth="174.0">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </MFXTextField>
+                              <MFXTextField floatMode="BORDER" floatingText="Primer Apelllido" prefWidth="130.0">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </MFXTextField>
+                              <MFXTextField floatMode="BORDER" floatingText="Segundo apellido" prefHeight="50.0" prefWidth="130.0">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </MFXTextField>
+                              <MFXTextField floatMode="BORDER" floatingText="Cédula" prefWidth="130.0">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </MFXTextField>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <MFXRadioButton text="Masculino">
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
+                                       </HBox.margin>
+                                    </MFXRadioButton>
+                                    <MFXRadioButton text="Femenino">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </MFXRadioButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <VBox prefHeight="235.0" prefWidth="192.0">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <MFXCheckbox text="Administrador" />
+                                    <MFXCheckbox text="Activo" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <MFXDatePicker prefHeight="26.0" prefWidth="97.0">
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </MFXDatePicker>
+                                    <MFXDatePicker>
+                                       <HBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </HBox.margin>
+                                    </MFXDatePicker>
+                                 </children>
+                              </HBox>
+                              <MFXTextField floatMode="BORDER" floatingText="Correo" prefHeight="62.0" prefWidth="166.0" />
+                              <MFXTextField floatMode="BORDER" floatingText="Usuario" prefHeight="51.0" prefWidth="166.0">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </VBox.margin></MFXTextField>
+                              <MFXPasswordField>
+                                 <VBox.margin>
+                                    <Insets bottom="40.0" />
+                                 </VBox.margin></MFXPasswordField>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <MFXButton styleClass="jfx-btn-nuevo" stylesheets="@Style.css" text="Nuevo">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic></MFXButton>
+                        <MFXButton text="Buscar">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin></MFXButton>
+                        <MFXButton text="Eliminar">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </MFXButton>
+                        <MFXButton text="Guardar">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </MFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </AnchorPane>
