@@ -38,50 +38,47 @@ public class LogInController  extends Controller implements Initializable {
 
     @FXML
     private MFXTextField txfUser;
-    
-        @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    @Override
+    public void initialize() {
         imvFondo.fitHeightProperty().bind(root.heightProperty());
         imvFondo.fitWidthProperty().bind(root.widthProperty());
     }
 
-    @Override
-    public void initialize() {
-     
-        txfUser.clear();
-        psfPassword.clear();
-    }
-
     @FXML
     void onActionBtnIngresar(ActionEvent event) {
-    
-            if (txfUser.getText() == null|| txfUser.getText().isBlank()) {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Validacion de  Usuario", getStage(), "Debe ingresar un usuario");
-            } else if (psfPassword.getText() == null || psfPassword.getText().isBlank())
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Validacion de  contraseña", (Stage) btnIngresar.getScene().getWindow(), "Debe ingresar una contraseña");
-            else{
-                System.out.println("ingreso exitoso");
-                
+        if (txfUser.getText().isBlank())
+        {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Validacion Usuario", getStage(), "Es necesario digitar un usuario para ingresar al sistema");
+        } else if (psfPassword.getText().isBlank())
+        {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Validacion Usuario", getStage(), "Es necesario digitar una clave para ingresar al sistema");
+        } else
+        {
+            EmpleadoService empleadoService = new EmpleadoService();
+            Respuesta respuesta = empleadoService.getUsuario(txfUser.getText(), psfPassword.getText());
 
-            }
-            EmpleadoService empleadoService= new EmpleadoService();
-            Respuesta respuesta = empleadoService.getUsuario(txfUser.getText(),psfPassword.getText());
-            if(respuesta.getEstado()){
-                AppContext.getInstance().set("Usuario",respuesta.getResultado("Uusario"));
+            if (respuesta.getEstado())
+            {
+                AppContext.getInstance().set("Usuario", respuesta.getResultado("Usuario"));
                 FlowController.getInstance().goMain();
                 Stage stage = (Stage) this.root.getScene().getWindow();
                 stage.close();
-                
-            }else{
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Validacion de Usuario", getStage(), respuesta.getMensaje());
-           
+            } else
+            {
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Validacion Usuario", getStage(), respuesta.getMensaje());
             }
-        
+        }
     }
     @FXML
     void onActionBtnSalir(ActionEvent event) {
 
         ((Stage) btnSalir.getScene().getWindow()).close();
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 }
