@@ -7,13 +7,18 @@ package cr.ac.una.unaplanilla.model;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 
 /**
  *
@@ -61,6 +66,12 @@ public class Tipoplanillas implements Serializable {
     @Basic(optional = false)
     @Column(name = "TPLA_VERSION")
     private BigInteger tplaVersion;
+    
+    @JoinTable(name = "PLAM_EMPLEADOSPLANILLA", joinColumns = {
+        @JoinColumn(name = "EXP_IDTPLA", referencedColumnName = "TPLA_ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "EXP_IDEMP", referencedColumnName = "EMP_ID")})
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Empleados> empleados;
 
     public Tipoplanillas() {
     }

@@ -1,238 +1,231 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cr.ac.una.unaplanilla.model;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-/**
- *
- * @author Kendall Fonseca
- */
 public class EmpleadosDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private SimpleStringProperty empId;
-    private SimpleStringProperty empNombre;
-    private SimpleStringProperty empPapellido;
-    private SimpleStringProperty empSapellido;
-    private SimpleStringProperty empCedula;
-    private ObjectProperty<String> empGenero;
-    private SimpleStringProperty empCorreo;
-    private SimpleBooleanProperty empAdministrador;
-    private SimpleStringProperty empUsuario;
-    private SimpleStringProperty empClave;
-    private ObjectProperty<LocalDate> empFingreso;
-    private ObjectProperty<LocalDate> empFsalida;
-    private SimpleBooleanProperty empEstado;
-    private Long empVersion;
-    private Boolean modificado;
-    //private List<Tipoplanillas> tipoPlanillas;
-    
-    public EmpleadosDto() {
-    }
+    public SimpleStringProperty id;
+    public SimpleStringProperty nombre;
+    public SimpleStringProperty primerApellido;
+    public SimpleStringProperty segundoApellido;
+    public SimpleStringProperty cedula;
+    public ObjectProperty<String> genero;
+    public SimpleStringProperty correo;
+    public SimpleBooleanProperty administrador;
+    public SimpleStringProperty usuario;
+    public SimpleStringProperty clave;
+    public ObjectProperty<LocalDate> fechaIngreso;
+    public ObjectProperty<LocalDate> fechaSalida;
+    public SimpleBooleanProperty estado;
+    private Long version;
+    private boolean modificado;
+    // private List<TipoPlanilla> tiposPlanilla;
 
-    public EmpleadosDto(Long empId, SimpleStringProperty empNombre, SimpleStringProperty empPapellido, SimpleStringProperty empSapellido, SimpleStringProperty empCedula, ObjectProperty<String> empGenero, SimpleStringProperty empCorreo, SimpleStringProperty empAdministrador, SimpleStringProperty empUsuario, SimpleStringProperty empClave, ObjectProperty<LocalDate> empFingreso, ObjectProperty<LocalDate> empFsalida, SimpleStringProperty empEstado) {
-        this.empId = new SimpleStringProperty("");
-        this.empNombre = new SimpleStringProperty("");
-        this.empPapellido = new SimpleStringProperty("");
-        this.empSapellido = new SimpleStringProperty("");
-        this.empCedula = new SimpleStringProperty("");
-        this.empGenero = new SimpleObjectProperty("M");
-        this.empCorreo = new SimpleStringProperty("");
-        this.empAdministrador = new SimpleBooleanProperty(false);
-        this.empUsuario = new SimpleStringProperty("");
-        this.empClave = new SimpleStringProperty("");
-        this.empFingreso = new SimpleObjectProperty(LocalDate.now());
-        this.empFsalida = new SimpleObjectProperty();
-        this.empEstado = new SimpleBooleanProperty(true);
-        this.modificado=false;
+    public EmpleadosDto() {
+        this.id = new SimpleStringProperty("");
+        this.nombre = new SimpleStringProperty("");
+        this.primerApellido = new SimpleStringProperty("");
+        this.segundoApellido = new SimpleStringProperty("");
+        this.cedula = new SimpleStringProperty("");
+        this.genero = new SimpleObjectProperty("M");
+        this.correo = new SimpleStringProperty("");
+        this.administrador = new SimpleBooleanProperty(false);
+        this.usuario = new SimpleStringProperty("");
+        this.clave = new SimpleStringProperty("");
+        this.fechaIngreso = new SimpleObjectProperty(LocalDate.now());
+        this.fechaSalida = new SimpleObjectProperty();
+        this.estado = new SimpleBooleanProperty(true);
+        this.modificado = false;
     }
 
     public EmpleadosDto(Empleados empleado) {
-        this.empId.set(empleado.getEmpId().toString());
-        this.empNombre = empNombre;
-        this.empPapellido = empPapellido;
-        this.empSapellido = empSapellido;
-        this.empCedula = empCedula;
-        this.empGenero = empGenero;
-        this.empCorreo = empCorreo;
-        this.empAdministrador = empAdministrador;
-        this.empUsuario = empUsuario;
-        this.empClave = empClave;
-        this.empFingreso = empFingreso;
-        this.empFsalida = empFsalida;
-        this.empEstado = empEstado;
-        this.empVersion = empVersion;
-        this.modificado = modificado;
+        this();
+        this.id.set(empleado.getId().toString());
+        this.nombre.set(empleado.getNombre());
+        this.primerApellido.set(empleado.getPrimerApellido());
+        this.segundoApellido.set(empleado.getSegundoApellido());
+        this.cedula.set(empleado.getCedula());
+        this.genero.set(empleado.getGenero());
+        this.correo.set(empleado.getCorreo());
+        this.administrador.set(empleado.getAdministrador().equals("S"));
+        this.usuario.set(empleado.getUsuario());
+        this.clave.set(empleado.getClave());
+        this.fechaIngreso.set(empleado.getFechaIngreso());
+        this.fechaSalida.set(empleado.getFechaSalida());
+        this.estado.set(empleado.getEstado().equals("A"));
+        this.version = empleado.getVersion();
     }
-    
-    
 
-
-    
-
-    public Long getEmpId() {
-        if(!this.empId.get().isBlank() && this.empId.get() !=null){
-            return Long.valueOf(this.empId.get());
+//    public EmpleadoDto(SimpleStringProperty id, SimpleStringProperty nombre, SimpleStringProperty primerApellido, SimpleStringProperty segundoApellido, SimpleStringProperty cedula, ObjectProperty<String> genero, SimpleStringProperty correo, SimpleStringProperty administrador, SimpleStringProperty usuario, SimpleStringProperty clave, ObjectProperty<LocalDate> fechaIngreso, ObjectProperty<LocalDate> fechaSalida, SimpleStringProperty estado) {
+//        this.id = id;
+//        this.nombre = nombre;
+//        this.primerApellido = primerApellido;
+//        this.segundoApellido = segundoApellido;
+//        this.cedula = cedula;
+//        this.genero = genero;
+//        this.correo = correo;
+//        this.administrador = administrador;
+//        this.usuario = usuario;
+//        this.clave = clave;
+//        this.fechaIngreso = fechaIngreso;
+//        this.fechaSalida = fechaSalida;
+//        this.estado = estado;
+//    }
+    public Long getId() {
+        if (this.id.get() != null && !this.id.get().isBlank())
+        {
+            return Long.valueOf(this.id.get());
         }
         return null;
     }
 
-    public void setEmpId(BigDecimal empId) {
-        this.empId.set(empId.toString());
+    public void setId(Long id) {
+        this.id.set(id.toString());
     }
 
-    public String getEmpNombre() {
-        return empNombre.get();
+    public String getNombre() {
+        return nombre.get();
     }
 
-    public void setEmpNombre(String empNombre) {
-        this.empNombre.set(empNombre);
+    public void setNombre(String nombre) {
+        this.nombre.set(nombre);
     }
 
-    public String getEmpPapellido() {
-        return empPapellido.get();
+    public String getPrimerApellido() {
+        return primerApellido.get();
     }
 
-    public void setEmpPapellido(String empPapellido) {
-        this.empPapellido.set(empPapellido);
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido.set(primerApellido);
     }
 
-    public String getEmpSapellido() {
-        return empSapellido.get();
+    public String getSegundoApellido() {
+        return segundoApellido.get();
     }
 
-    public void setEmpSapellido(String empSapellido) {
-        this.empSapellido.set(empSapellido);
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido.set(segundoApellido);
     }
 
-    public String getEmpCedula() {
-        return empCedula.get();
+    public String getCedula() {
+        return cedula.get();
     }
 
-    public void setEmpCedula(String empCedula) {
-        this.empCedula.set(empCedula);
+    public void setCedula(String cedula) {
+        this.cedula.set(cedula);
     }
 
-    public String getEmpGenero() {
-        return empGenero.get();
+    public String getGenero() {
+        return genero.get();
     }
 
-    public void setEmpGenero(String empGenero) {
-        this.empGenero.set(empGenero);
+    public void setGenero(String genero) {
+        this.genero.set(genero);
     }
 
-    public String getEmpCorreo() {
-        return empCorreo.get();
+    public String getCorreo() {
+        return correo.get();
     }
 
-    public void setEmpCorreo(String empCorreo) {
-        this.empCorreo.set(empCorreo);
+    public void setCorreo(String correo) {
+        this.correo.set(correo);
     }
 
-    public String getEmpAdministrador() {
-        return empAdministrador.get()?"S":"N";
+    public String getAdministrador() {
+        return administrador.get() ? "S" : "N";
     }
 
-    public void setEmpAdministrador(String empAdministrador) {
-        this.empAdministrador.set(empAdministrador.equalsIgnoreCase(empAdministrador));
-    } 
-
-    public String getEmpUsuario() {
-        return empUsuario.get();
+    public void setAdministrador(String administrador) {
+        this.administrador.set(administrador.equalsIgnoreCase("S"));
     }
 
-    public void setEmpUsuario(String empUsuario) {
-        this.empUsuario.set(empUsuario);
+    public String getUsuario() {
+        return usuario.get();
     }
 
-    public String getEmpClave() {
-        return empClave.get();
+    public void setUsuario(String usuario) {
+        this.usuario.set(usuario);
     }
 
-    public void setEmpClave(String empClave) {
-        this.empClave.set(empClave);
+    public String getClave() {
+        return clave.get();
     }
 
-    public LocalDate getEmpFingreso() {
-        return empFingreso.get(); 
+    public void setClave(String clave) {
+        this.clave.set(clave);
     }
 
-    public void setEmpFingreso(LocalDate empFingreso) {
-        this.empFingreso.set(empFingreso);
+    public LocalDate getFechaIngreso() {
+        return fechaIngreso.get();
     }
 
-    public LocalDate getEmpFsalida() {
-        return empFsalida.get();
+    public void setFechaIngreso(LocalDate fechaIngreso) {
+        this.fechaIngreso.set(fechaIngreso);
     }
 
-    public void setEmpFsalida(LocalDate empFsalida) {
-        this.empFsalida.set(empFsalida);
+    public LocalDate getFechaSalida() {
+        return fechaSalida.get();
     }
 
-    public String getEmpEstado() {
-        return empEstado.get()?"A":"I";
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida.set(fechaSalida);
     }
 
-    public void setEmpEstado(String empEstado) {
-        this.empEstado.set(empEstado.equalsIgnoreCase("A"));
+    public String getEstado() {
+        return estado.get() ? "A" : "I";
     }
 
-    public Long getEmpVersion() {
-        return empVersion;
+    public void setEstado(String estado) {
+        this.estado.set(estado.equalsIgnoreCase("A"));
     }
 
-    public void setEmpVersion(Long empVersion) {
-        this.empVersion = empVersion;
+    public Long getVersion() {
+        return version;
     }
- 
-    public Boolean getModificado() {
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public boolean isModificado() {
         return modificado;
     }
 
-    public void setModificado(Boolean modificado) {
+    public void setModificado(boolean modificado) {
         this.modificado = modificado;
     }
 
+//    public List<TipoPlanilla> getTiposPlanilla() {
+//        return tiposPlanilla;
+//    }
+//
+//    public void setTiposPlanilla(List<TipoPlanilla> tiposPlanilla) {
+//        this.tiposPlanilla = tiposPlanilla;
+//    }
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (empId != null ? empId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmpleadosDto)) {
+        if (!(object instanceof EmpleadosDto))
+        {
             return false;
         }
         EmpleadosDto other = (EmpleadosDto) object;
-        if ((this.empId == null && other.empId != null) || (this.empId != null && !this.empId.equals(other.empId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        {
             return false;
         }
         return true;
@@ -240,7 +233,7 @@ public class EmpleadosDto implements Serializable {
 
     @Override
     public String toString() {
-        return "cr.ac.una.unaplanilla.model.Empleados[ empId=" + empId + " ]";
+        return "cr.ac.una.unaplanilla.model.EmpleadoDto[ empId=" + id + " ]";
     }
-    
+
 }

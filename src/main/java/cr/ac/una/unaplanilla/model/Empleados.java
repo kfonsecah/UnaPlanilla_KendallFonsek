@@ -1,244 +1,263 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cr.ac.una.unaplanilla.model;
 
+import java.io.Serializable;
+import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Date;
+import jakarta.persistence.Version;
+import java.time.LocalDate;
 
 /**
  *
- * @author Kendall Fonseca
+ * @author justi
  */
 @Entity
-@Table(name = "PLAM_EMPLEADOS", schema="UNA")
-@NamedQueries({
-    @NamedQuery(name = "Empleados.findAll", query = "SELECT e FROM Empleados e"),
-    @NamedQuery(name = "Empleados.findByEmpId", query = "SELECT e FROM Empleados e WHERE e.empId = :empId"),
-//    @NamedQuery(name = "Empleados.findByEmpNombre", query = "SELECT e FROM Empleados e WHERE e.empNombre = :empNombre"),
-//    @NamedQuery(name = "Empleados.findByEmpPapellido", query = "SELECT e FROM Empleados e WHERE e.empPapellido = :empPapellido"),
-//    @NamedQuery(name = "Empleados.findByEmpSapellido", query = "SELECT e FROM Empleados e WHERE e.empSapellido = :empSapellido"),
-//    @NamedQuery(name = "Empleados.findByEmpCedula", query = "SELECT e FROM Empleados e WHERE e.empCedula = :empCedula"),
-//    @NamedQuery(name = "Empleados.findByEmpGenero", query = "SELECT e FROM Empleados e WHERE e.empGenero = :empGenero"),
-//    @NamedQuery(name = "Empleados.findByEmpCorreo", query = "SELECT e FROM Empleados e WHERE e.empCorreo = :empCorreo"),
-//    @NamedQuery(name = "Empleados.findByEmpAdministrador", query = "SELECT e FROM Empleados e WHERE e.empAdministrador = :empAdministrador"),
-//    @NamedQuery(name = "Empleados.findByEmpUsuario", query = "SELECT e FROM Empleados e WHERE e.empUsuario = :empUsuario"),
-//    @NamedQuery(name = "Empleados.findByEmpClave", query = "SELECT e FROM Empleados e WHERE e.empClave = :empClave"),
-//    @NamedQuery(name = "Empleados.findByEmpFingreso", query = "SELECT e FROM Empleados e WHERE e.empFingreso = :empFingreso"),
-//    @NamedQuery(name = "Empleados.findByEmpFsalida", query = "SELECT e FROM Empleados e WHERE e.empFsalida = :empFsalida"),
-//    @NamedQuery(name = "Empleados.findByEmpEstado", query = "SELECT e FROM Empleados e WHERE e.empEstado = :empEstado"),
-//    @NamedQuery(name = "Empleados.findByEmpVersion", query = "SELECT e FROM Empleados e WHERE e.empVersion = :empVersion")
-})
+@Table(name = "PLAM_EMPLEADOS", schema = "UNA")
+@NamedQueries(
+        {
+            @NamedQuery(name = "Empleados.findAll", query = "SELECT e FROM Empleados e"),//revisar estas NamedQuery que esten bien escritas
+            @NamedQuery(name = "Empleados.findByEmpId", query = "SELECT e FROM Empleados e WHERE e.id = :id"),
+            @NamedQuery(name = "Empleados.findByUsuarioClave", query = "SELECT e FROM Empleados e WHERE e.usuario = :usuario AND e.clave = :clave"),
+        /* @NamedQuery(name = "Empleado.findByEmpNombre", query = "SELECT e FROM Empleado e WHERE e.empNombre = :empNombre"),
+    @NamedQuery(name = "Empleado.findByEmpPapellido", query = "SELECT e FROM Empleado e WHERE e.empPapellido = :empPapellido"),
+    @NamedQuery(name = "Empleado.findByEmpSapellido", query = "SELECT e FROM Empleado e WHERE e.empSapellido = :empSapellido"),
+    @NamedQuery(name = "Empleado.findByEmpCedula", query = "SELECT e FROM Empleado e WHERE e.empCedula = :empCedula"),
+    @NamedQuery(name = "Empleado.findByEmpGenero", query = "SELECT e FROM Empleado e WHERE e.empGenero = :empGenero"),
+    @NamedQuery(name = "Empleado.findByEmpCorreo", query = "SELECT e FROM Empleado e WHERE e.empCorreo = :empCorreo"),
+    @NamedQuery(name = "Empleado.findByEmpAdministrador", query = "SELECT e FROM Empleado e WHERE e.empAdministrador = :empAdministrador"),
+    @NamedQuery(name = "Empleado.findByEmpUsuario", query = "SELECT e FROM Empleado e WHERE e.empUsuario = :empUsuario"),
+    @NamedQuery(name = "Empleado.findByEmpFingreso", query = "SELECT e FROM Empleado e WHERE e.empFingreso = :empFingreso"),
+    @NamedQuery(name = "Empleado.findByEmpFsalida", query = "SELECT e FROM Empleado e WHERE e.empFsalida = :empFsalida"),
+    @NamedQuery(name = "Empleado.findByEmpEstado", query = "SELECT e FROM Empleado e WHERE e.empEstado = :empEstado"),
+    @NamedQuery(name = "Empleado.findByEmpVersion", query = "SELECT e FROM Empleado e WHERE e.empVersion = :empVersion")*/
+        })
 public class Empleados implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
-    @SequenceGenerator(name= "PLAM_EMPLEADOS_EMP_ID_GENERATOR",sequenceName="una.PLAM_EMPLEADOS_SEQ01",allocationSize=1)
-    @GeneratedValue( strategy = GenerationType.SEQUENCE,generator="PLAM_EMPLEADOS_EMP_ID_GENERATOR")
+    @SequenceGenerator(name = "PLAM_EMPLEADOS_EMP_ID_GENERATOR", sequenceName = "una.PLAM_EMPLEADOS_SEQ01", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLAM_EMPLEADOS_EMP_ID_GENERATOR")
     @Basic(optional = false)
     @Column(name = "EMP_ID")
-    private BigDecimal empId;
+    private Long id;
     @Basic(optional = false)
     @Column(name = "EMP_NOMBRE")
-    private String empNombre;
+    private String nombre;
     @Basic(optional = false)
     @Column(name = "EMP_PAPELLIDO")
-    private String empPapellido;
+    private String primerApellido;
     @Basic(optional = false)
     @Column(name = "EMP_SAPELLIDO")
-    private String empSapellido;
+    private String segundoApellido;
     @Basic(optional = false)
     @Column(name = "EMP_CEDULA")
-    private String empCedula;
+    private String cedula;
     @Basic(optional = false)
     @Column(name = "EMP_GENERO")
-    private String empGenero;
+    private String genero;
     @Column(name = "EMP_CORREO")
-    private String empCorreo;
+    private String correo;
     @Basic(optional = false)
     @Column(name = "EMP_ADMINISTRADOR")
-    private String empAdministrador;
+    private String administrador;
     @Column(name = "EMP_USUARIO")
-    private String empUsuario;
+    private String usuario;
     @Column(name = "EMP_CLAVE")
-    private String empClave;
+    private String clave;
     @Basic(optional = false)
     @Column(name = "EMP_FINGRESO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date empFingreso;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDate fechaIngreso;
     @Column(name = "EMP_FSALIDA")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date empFsalida;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDate fechaSalida;
     @Basic(optional = false)
     @Column(name = "EMP_ESTADO")
-    private String empEstado;
-    @Basic(optional = false)
+    private String estado;
+    @Version
     @Column(name = "EMP_VERSION")
-    private BigInteger empVersion;
+    private Long version;
+    @ManyToMany(mappedBy = "empleados", fetch = FetchType.LAZY)
+    private List<Tipoplanillas> tiposPlanilla;
 
     public Empleados() {
     }
 
-    public Empleados(BigDecimal empId) {
-        this.empId = empId;
+    public Empleados(Long id) {
+        this.id = id;
     }
 
-    public Empleados(BigDecimal empId, String empNombre, String empPapellido, String empSapellido, String empCedula, String empGenero, String empAdministrador, Date empFingreso, String empEstado, BigInteger empVersion) {
-        this.empId = empId;
-        this.empNombre = empNombre;
-        this.empPapellido = empPapellido;
-        this.empSapellido = empSapellido;
-        this.empCedula = empCedula;
-        this.empGenero = empGenero;
-        this.empAdministrador = empAdministrador;
-        this.empFingreso = empFingreso;
-        this.empEstado = empEstado;
-        this.empVersion = empVersion;
+    public Empleados(EmpleadosDto empleadoDto) {
+        this.id = empleadoDto.getId();
+        actualizar(empleadoDto);
     }
 
-    public BigDecimal getEmpId() {
-        return empId;
+    public void actualizar(EmpleadosDto empleadoDto) {
+        this.nombre = empleadoDto.getNombre();
+        this.primerApellido = empleadoDto.getPrimerApellido();
+        this.segundoApellido = empleadoDto.getSegundoApellido();
+        this.cedula = empleadoDto.getCedula();
+        this.genero = empleadoDto.getGenero();
+        this.correo = empleadoDto.getCorreo();
+        this.administrador = empleadoDto.getAdministrador();
+        this.usuario = empleadoDto.getUsuario();
+        this.clave = empleadoDto.getClave();
+        this.fechaIngreso = empleadoDto.getFechaIngreso();
+        this.fechaSalida = empleadoDto.getFechaSalida();
+        this.estado = empleadoDto.getEstado();
+        this.version = empleadoDto.getVersion();
     }
 
-    public void setEmpId(BigDecimal empId) {
-        this.empId = empId;
+    public Long getId() {
+        return id;
     }
 
-    public String getEmpNombre() {
-        return empNombre;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setEmpNombre(String empNombre) {
-        this.empNombre = empNombre;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getEmpPapellido() {
-        return empPapellido;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setEmpPapellido(String empPapellido) {
-        this.empPapellido = empPapellido;
+    public String getPrimerApellido() {
+        return primerApellido;
     }
 
-    public String getEmpSapellido() {
-        return empSapellido;
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
     }
 
-    public void setEmpSapellido(String empSapellido) {
-        this.empSapellido = empSapellido;
+    public String getSegundoApellido() {
+        return segundoApellido;
     }
 
-    public String getEmpCedula() {
-        return empCedula;
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
     }
 
-    public void setEmpCedula(String empCedula) {
-        this.empCedula = empCedula;
+    public String getCedula() {
+        return cedula;
     }
 
-    public String getEmpGenero() {
-        return empGenero;
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
 
-    public void setEmpGenero(String empGenero) {
-        this.empGenero = empGenero;
+    public String getGenero() {
+        return genero;
     }
 
-    public String getEmpCorreo() {
-        return empCorreo;
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
-    public void setEmpCorreo(String empCorreo) {
-        this.empCorreo = empCorreo;
+    public String getCorreo() {
+        return correo;
     }
 
-    public String getEmpAdministrador() {
-        return empAdministrador;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
-    public void setEmpAdministrador(String empAdministrador) {
-        this.empAdministrador = empAdministrador;
+    public String getAdministrador() {
+        return administrador;
     }
 
-    public String getEmpUsuario() {
-        return empUsuario;
+    public void setAdministrador(String administrador) {
+        this.administrador = administrador;
     }
 
-    public void setEmpUsuario(String empUsuario) {
-        this.empUsuario = empUsuario;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public String getEmpClave() {
-        return empClave;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public void setEmpClave(String empClave) {
-        this.empClave = empClave;
+    public String getClave() {
+        return clave;
     }
 
-    public Date getEmpFingreso() {
-        return empFingreso;
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
-    public void setEmpFingreso(Date empFingreso) {
-        this.empFingreso = empFingreso;
+    public LocalDate getFechaIngreso() {
+        return fechaIngreso;
     }
 
-    public Date getEmpFsalida() {
-        return empFsalida;
+    public void setFechaIngreso(LocalDate fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
     }
 
-    public void setEmpFsalida(Date empFsalida) {
-        this.empFsalida = empFsalida;
+    public LocalDate getFechaSalida() {
+        return fechaSalida;
     }
 
-    public String getEmpEstado() {
-        return empEstado;
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
 
-    public void setEmpEstado(String empEstado) {
-        this.empEstado = empEstado;
+    public String getEstado() {
+        return estado;
     }
 
-    public BigInteger getEmpVersion() {
-        return empVersion;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    public void setEmpVersion(BigInteger empVersion) {
-        this.empVersion = empVersion;
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public List<Tipoplanillas> getTiposPlanilla() {
+        return tiposPlanilla;
+    }
+
+    public void setTiposPlanilla(List<Tipoplanillas> tiposPlanilla) {
+        this.tiposPlanilla = tiposPlanilla;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (empId != null ? empId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empleados)) {
+        if (!(object instanceof Empleados))
+        {
             return false;
         }
         Empleados other = (Empleados) object;
-        if ((this.empId == null && other.empId != null) || (this.empId != null && !this.empId.equals(other.empId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        {
             return false;
         }
         return true;
@@ -246,7 +265,7 @@ public class Empleados implements Serializable {
 
     @Override
     public String toString() {
-        return "cr.ac.una.unaplanilla.model.Empleados[ empId=" + empId + " ]";
+        return "cr.ac.una.unaplanilla.model.Empleado[ empId=" + id + " ]";
     }
-    
+
 }

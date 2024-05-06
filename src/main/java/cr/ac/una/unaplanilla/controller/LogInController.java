@@ -1,7 +1,10 @@
 package cr.ac.una.unaplanilla.controller;
 
+import cr.ac.una.unaplanilla.service.EmpleadoService;
+import cr.ac.una.unaplanilla.util.AppContext;
 import cr.ac.una.unaplanilla.util.FlowController;
 import cr.ac.una.unaplanilla.util.Mensaje;
+import cr.ac.una.unaplanilla.util.Respuesta;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -35,41 +38,50 @@ public class LogInController  extends Controller implements Initializable {
 
     @FXML
     private MFXTextField txfUser;
-
-    @Override
-    public void initialize() {
+    
+        @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         imvFondo.fitHeightProperty().bind(root.heightProperty());
         imvFondo.fitWidthProperty().bind(root.widthProperty());
     }
 
+    @Override
+    public void initialize() {
+     
+        txfUser.clear();
+        psfPassword.clear();
+    }
+
     @FXML
     void onActionBtnIngresar(ActionEvent event) {
-        try {
+    
             if (txfUser.getText() == null|| txfUser.getText().isBlank()) {
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Validacion de  Usuario", getStage(), "Debe ingresar un usuario");
             } else if (psfPassword.getText() == null || psfPassword.getText().isBlank())
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Validacion de  contraseña", (Stage) btnIngresar.getScene().getWindow(), "Debe ingresar una contraseña");
             else{
                 System.out.println("ingreso exitoso");
+                
+
+            }
+            EmpleadoService empleadoService= new EmpleadoService();
+            Respuesta respuesta = empleadoService.getUsuario(txfUser.getText(),psfPassword.getText());
+            if(respuesta.getEstado()){
+                AppContext.getInstance().set("Usuario",respuesta.getResultado("Uusario"));
                 FlowController.getInstance().goMain();
                 Stage stage = (Stage) this.root.getScene().getWindow();
                 stage.close();
-
+                
+            }else{
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Validacion de Usuario", getStage(), respuesta.getMensaje());
+           
             }
-        } catch (Exception ex) {
-            Logger.getLogger(LogInController.class.getName()).log(Level.SEVERE, "Error al ingreso del Sistema", ex);
-
-        }
+        
     }
     @FXML
     void onActionBtnSalir(ActionEvent event) {
 
         ((Stage) btnSalir.getScene().getWindow()).close();
-
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 }
