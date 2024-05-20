@@ -19,10 +19,6 @@ import jakarta.persistence.TemporalType;
 import jakarta.persistence.Version;
 import java.time.LocalDate;
 
-/**
- *
- * @author justi
- */
 @Entity
 @Table(name = "PLAM_EMPLEADOS", schema = "UNA")
 @NamedQueries(

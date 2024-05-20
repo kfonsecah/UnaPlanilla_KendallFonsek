@@ -36,11 +36,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author justi
- */
+
 public class EmpleadosController extends Controller implements Initializable {
 
     @FXML

@@ -16,10 +16,7 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
-/**
- *
- * @author justi
- */
+
 @Entity
 @Table(name = "PLAM_TIPOPLANILLAS")
 @NamedQueries({
