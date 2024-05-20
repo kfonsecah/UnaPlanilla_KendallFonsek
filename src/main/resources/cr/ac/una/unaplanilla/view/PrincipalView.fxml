@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.unaplanilla.controller.PrincipalController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="891.0" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.unaplanilla.controller.PrincipalController">
    <top>
       <HBox alignment="CENTER_RIGHT" prefHeight="12.0" prefWidth="700.0" styleClass="jfx-contenedor-menu" BorderPane.alignment="CENTER">
          <children>
@@ -22,9 +25,14 @@
          </children></HBox>
    </top>
    <left>
-      <VBox prefHeight="361.0" prefWidth="166.0" spacing="30.0" styleClass="jfx-contenedor-principal" BorderPane.alignment="CENTER">
+      <VBox prefHeight="561.0" prefWidth="238.0" spacing="30.0" styleClass="jfx-contenedor-principal" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="52.0" prefWidth="166.0" styleClass="jfx-contenedor-principal">
+            <StackPane prefHeight="60.0" prefWidth="159.0" styleClass="jfx-banner" stylesheets="@Styles.css">
+               <children>
+                  <ImageView fitHeight="83.0" fitWidth="210.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />
+               </children></StackPane>
+            <Separator prefHeight="57.0" prefWidth="208.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="208.0" styleClass="jfx-contenedor-principal">
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -34,15 +42,30 @@
                   <Label layoutX="83.0" layoutY="14.0" text="Label" />
                   <Label layoutX="83.0" layoutY="37.0" text="Label" />
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </AnchorPane>
-            <MFXButton fx:id="btnEmpleados" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#onActionBtnEmpleados" prefHeight="70.0" prefWidth="166.0" styleClass="jfx-menuIngresar" text="Empleados" VBox.vgrow="ALWAYS" />
-            <MFXButton fx:id="btnTiposPlanilla" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#onActionBtnTipoPlanilla" prefHeight="70.0" prefWidth="166.0" styleClass="jfx-menuIngresar" text="Tipo Planilla" VBox.vgrow="ALWAYS" />
+            <MFXButton fx:id="btnEmpleados" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#onActionBtnEmpleados" prefHeight="70.0" prefWidth="166.0" styleClass="jfx-btnEmpleados" stylesheets="@Styles.css" text="Empleados" VBox.vgrow="ALWAYS">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </MFXButton>
+            <MFXButton fx:id="btnTiposPlanilla" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#onActionBtnTipoPlanilla" prefHeight="60.0" prefWidth="208.0" styleClass="jfx-btnTipoPlanilla" stylesheets="@Styles.css" text="Tipo Planilla" VBox.vgrow="ALWAYS">
+               <graphic>
+                  <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </MFXButton>
             <MFXButton buttonType="RAISED" maxWidth="1.7976931348623157E308" prefHeight="70.0" styleClass="jfx-Salir" text="Cerrar Sesion" VBox.vgrow="ALWAYS" />
             <MFXButton fx:id="btnSalir" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#onActionBtnSalir" prefHeight="70.0" styleClass="jfx-Salir" text="Salir" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </left>
    <center>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="377.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </BorderPane.margin>
+      </StackPane>
    </center>
 </BorderPane>

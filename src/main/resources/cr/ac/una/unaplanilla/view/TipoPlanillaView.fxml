@@ -1,11 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.unaplanilla.controller.TipoPlanillaController">
+<?import javafx.scene.layout.HBox?>
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.unaplanilla.controller.TipoPlanillaController">
    <children>
-      <MFXButton layoutX="209.0" layoutY="161.0" text=":0" />
+      <VBox spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" AnchorPane.bottomAnchor="10.0">
+         <TabPane fx:id="tbpTipoPlanilla">
+            <tabs>
+               <Tab fx:id="tbpTipoPlanillas" text="Tipo Planillas">
+                  <content>
+                     <AnchorPane>
+                        <children>
+                           <VBox spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" AnchorPane.bottomAnchor="10.0">
+                              <MFXTextField fx:id="txtId" floatingText="ID" />
+                              <MFXTextField fx:id="txtCodigo" floatingText="Código" />
+                              <MFXTextField fx:id="txtDescripcion" floatingText="Descripción" />
+                              <MFXTextField fx:id="txtPlanillasMes" floatingText="Planillas por Mes" />
+                              <MFXCheckbox fx:id="chkActivo" text="Activo" />
+                              <HBox>
+                                 <MFXButton fx:id="btnNuevo" text="Nuevo" onAction="#onActionBtnNuevo" />
+                                 <MFXButton fx:id="btnBuscar" text="Buscar" />
+                                 <MFXButton fx:id="btnGuardar" text="Guardar" onAction="#onActionBtnGuardar" />
+                                 <MFXButton fx:id="btnEliminar" text="Eliminar" onAction="#onActionBtnEliminar" />
+                              </HBox>
+                           </VBox>
+                        </children>
+                     </AnchorPane>
+                  </content>
+               </Tab>
+               <Tab fx:id="tbpInclusionEmpleados" text="Incluir Empleados">
+                  <content>
+                     <AnchorPane>
+                        <children>
+                           <VBox spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" AnchorPane.bottomAnchor="10.0">
+                              <MFXTextField fx:id="txtIdEmpleado" floatingText="ID Empleado" onKeyPressed="#keyPressIdEmpleado" />
+                              <MFXTextField fx:id="txtNombreEmpleado" floatingText="Nombre Empleado" />
+                              <MFXButton fx:id="btnAgregar" text="Agregar" onAction="#agregarEmpleado" />
+                              <TableView fx:id="tbvEmpleados">
+                                 <columns>
+                                    <TableColumn fx:id="tbcCodigo" text="Código" />
+                                    <TableColumn fx:id="tbcNombre" text="Nombre" />
+                                    <TableColumn fx:id="tbcEliminar" text="Eliminar" />
+                                 </columns>
+                              </TableView>
+                           </VBox>
+                        </children>
+                     </AnchorPane>
+                  </content>
+               </Tab>
+            </tabs>
+         </TabPane>
+      </VBox>
    </children>
 </AnchorPane>

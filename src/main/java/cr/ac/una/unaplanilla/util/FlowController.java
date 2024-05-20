@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -115,9 +116,17 @@ public class FlowController {
         }
         switch (location) {
             case "Center":
-                VBox vBox = ((VBox) ((BorderPane) stage.getScene().getRoot()).getCenter());
-                vBox.getChildren().clear();
-                vBox.getChildren().add(loader.getRoot());
+//                VBox vBox = ((VBox) ((BorderPane) stage.getScene().getRoot()).getCenter());
+//                vBox.getChildren().clear();
+//                vBox.getChildren().add(loader.getRoot());
+
+                StackPane StackPane = ((StackPane) ((BorderPane) stage.getScene().getRoot()).getCenter());
+                StackPane.getChildren().clear();
+                StackPane.getChildren().add(loader.getRoot());
+
+
+
+
                 break;
             case "Top":
                 break;
