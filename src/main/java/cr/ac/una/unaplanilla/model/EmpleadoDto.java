@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class EmpleadosDto implements Serializable {
+public class EmpleadoDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class EmpleadosDto implements Serializable {
     private boolean modificado;
     // private List<TipoPlanilla> tiposPlanilla;
 
-    public EmpleadosDto() {
+    public EmpleadoDto() {
         this.id = new SimpleStringProperty("");
         this.nombre = new SimpleStringProperty("");
         this.primerApellido = new SimpleStringProperty("");
@@ -45,9 +45,8 @@ public class EmpleadosDto implements Serializable {
         this.modificado = false;
     }
 
-    public EmpleadosDto(Empleados empleado) {
+    public EmpleadoDto(Empleado empleado) {
         this();
-        this.id.set(empleado.getId().toString());
         this.nombre.set(empleado.getNombre());
         this.primerApellido.set(empleado.getPrimerApellido());
         this.segundoApellido.set(empleado.getSegundoApellido());
@@ -219,11 +218,11 @@ public class EmpleadosDto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmpleadosDto))
+        if (!(object instanceof EmpleadoDto))
         {
             return false;
         }
-        EmpleadosDto other = (EmpleadosDto) object;
+        EmpleadoDto other = (EmpleadoDto) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;

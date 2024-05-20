@@ -4,7 +4,7 @@
  */
 package cr.ac.una.unaplanilla.controller;
 
-import cr.ac.una.unaplanilla.model.EmpleadosDto;
+import cr.ac.una.unaplanilla.model.EmpleadoDto;
 import cr.ac.una.unaplanilla.service.EmpleadoService;
 import cr.ac.una.unaplanilla.util.AppContext;
 import cr.ac.una.unaplanilla.util.BindingUtils;
@@ -70,7 +70,7 @@ public class EmpleadosController extends Controller implements Initializable {
     @FXML
     private MFXPasswordField txtClave;
 
-    private EmpleadosDto empleadoDto;
+    private EmpleadoDto empleadoDto;
     List<Node> requeridos = new ArrayList<>();
     @FXML
     private MFXDatePicker dtpFIngreso;
@@ -95,7 +95,7 @@ public class EmpleadosController extends Controller implements Initializable {
         txtCorreo.delegateSetTextFormatter(Formato.getInstance().maxLengthFormat(80));
         txtUsuario.delegateSetTextFormatter(Formato.getInstance().letrasFormat(15));
         txtClave.delegateSetTextFormatter(Formato.getInstance().maxLengthFormat(8));
-        empleadoDto = new EmpleadosDto();
+        empleadoDto = new EmpleadoDto();
     }
 
     @Override
@@ -105,7 +105,7 @@ public class EmpleadosController extends Controller implements Initializable {
 
     private void nuevoEmpleado() {
         unbindEmpleado();
-        empleadoDto = new EmpleadosDto();
+        empleadoDto = new EmpleadoDto();
         bindEmpleado(true);
         txtId.clear();
         txtId.requestFocus();
@@ -256,7 +256,7 @@ public class EmpleadosController extends Controller implements Initializable {
             if (respuesta.getEstado())
             {
                 unbindEmpleado();
-                this.empleadoDto = (EmpleadosDto) respuesta.getResultado("Empleado");
+                this.empleadoDto = (EmpleadoDto) respuesta.getResultado("Empleado");
                 bindEmpleado(false);
                 validarAdministrador();
                 validarRequeridos();

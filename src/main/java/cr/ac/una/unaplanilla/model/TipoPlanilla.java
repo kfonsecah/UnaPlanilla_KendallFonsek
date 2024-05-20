@@ -1,9 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cr.ac.una.unaplanilla.model;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,29 +15,25 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.List;
 
 /**
  *
- * @author Kendall Fonseca
+ * @author justi
  */
 @Entity
 @Table(name = "PLAM_TIPOPLANILLAS")
 @NamedQueries({
-    @NamedQuery(name = "Tipoplanillas.findAll", query = "SELECT t FROM Tipoplanillas t"),
-    @NamedQuery(name = "Tipoplanillas.findByTplaId", query = "SELECT t FROM Tipoplanillas t WHERE t.tplaId = :tplaId"),
-    @NamedQuery(name = "Tipoplanillas.findByTplaCodigo", query = "SELECT t FROM Tipoplanillas t WHERE t.tplaCodigo = :tplaCodigo"),
-    @NamedQuery(name = "Tipoplanillas.findByTplaDescripcion", query = "SELECT t FROM Tipoplanillas t WHERE t.tplaDescripcion = :tplaDescripcion"),
-    @NamedQuery(name = "Tipoplanillas.findByTplaPlaxmes", query = "SELECT t FROM Tipoplanillas t WHERE t.tplaPlaxmes = :tplaPlaxmes"),
-    @NamedQuery(name = "Tipoplanillas.findByTplaAnoultpla", query = "SELECT t FROM Tipoplanillas t WHERE t.tplaAnoultpla = :tplaAnoultpla"),
-    @NamedQuery(name = "Tipoplanillas.findByTplaMesultpla", query = "SELECT t FROM Tipoplanillas t WHERE t.tplaMesultpla = :tplaMesultpla"),
-    @NamedQuery(name = "Tipoplanillas.findByTplaNumultpla", query = "SELECT t FROM Tipoplanillas t WHERE t.tplaNumultpla = :tplaNumultpla"),
-    @NamedQuery(name = "Tipoplanillas.findByTplaEstado", query = "SELECT t FROM Tipoplanillas t WHERE t.tplaEstado = :tplaEstado"),
-    @NamedQuery(name = "Tipoplanillas.findByTplaVersion", query = "SELECT t FROM Tipoplanillas t WHERE t.tplaVersion = :tplaVersion")})
-public class Tipoplanillas implements Serializable {
+    @NamedQuery(name = "TipoPlanilla.findAll", query = "SELECT t FROM TipoPlanilla t"),
+    @NamedQuery(name = "TipoPlanilla.findByTplaId", query = "SELECT t FROM TipoPlanilla t WHERE t.tplaId = :tplaId"),
+    @NamedQuery(name = "TipoPlanilla.findByTplaCodigo", query = "SELECT t FROM TipoPlanilla t WHERE t.tplaCodigo = :tplaCodigo"),
+    @NamedQuery(name = "TipoPlanilla.findByTplaDescripcion", query = "SELECT t FROM TipoPlanilla t WHERE t.tplaDescripcion = :tplaDescripcion"),
+    @NamedQuery(name = "TipoPlanilla.findByTplaPlaxmes", query = "SELECT t FROM TipoPlanilla t WHERE t.tplaPlaxmes = :tplaPlaxmes"),
+    @NamedQuery(name = "TipoPlanilla.findByTplaAnoultpla", query = "SELECT t FROM TipoPlanilla t WHERE t.tplaAnoultpla = :tplaAnoultpla"),
+    @NamedQuery(name = "TipoPlanilla.findByTplaMesultpla", query = "SELECT t FROM TipoPlanilla t WHERE t.tplaMesultpla = :tplaMesultpla"),
+    @NamedQuery(name = "TipoPlanilla.findByTplaNumultpla", query = "SELECT t FROM TipoPlanilla t WHERE t.tplaNumultpla = :tplaNumultpla"),
+    @NamedQuery(name = "TipoPlanilla.findByTplaEstado", query = "SELECT t FROM TipoPlanilla t WHERE t.tplaEstado = :tplaEstado"),
+    @NamedQuery(name = "TipoPlanilla.findByTplaVersion", query = "SELECT t FROM TipoPlanilla t WHERE t.tplaVersion = :tplaVersion")})
+public class TipoPlanilla implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -66,21 +62,20 @@ public class Tipoplanillas implements Serializable {
     @Basic(optional = false)
     @Column(name = "TPLA_VERSION")
     private BigInteger tplaVersion;
-    
     @JoinTable(name = "PLAM_EMPLEADOSPLANILLA", joinColumns = {
         @JoinColumn(name = "EXP_IDTPLA", referencedColumnName = "TPLA_ID")}, inverseJoinColumns = {
         @JoinColumn(name = "EXP_IDEMP", referencedColumnName = "EMP_ID")})
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<Empleados> empleados;
+    private List<Empleado> empleados;
 
-    public Tipoplanillas() {
+    public TipoPlanilla() {
     }
 
-    public Tipoplanillas(BigDecimal tplaId) {
+    public TipoPlanilla(BigDecimal tplaId) {
         this.tplaId = tplaId;
     }
 
-    public Tipoplanillas(BigDecimal tplaId, String tplaCodigo, String tplaDescripcion, BigInteger tplaPlaxmes, String tplaEstado, BigInteger tplaVersion) {
+    public TipoPlanilla(BigDecimal tplaId, String tplaCodigo, String tplaDescripcion, BigInteger tplaPlaxmes, String tplaEstado, BigInteger tplaVersion) {
         this.tplaId = tplaId;
         this.tplaCodigo = tplaCodigo;
         this.tplaDescripcion = tplaDescripcion;
@@ -161,6 +156,14 @@ public class Tipoplanillas implements Serializable {
         this.tplaVersion = tplaVersion;
     }
 
+    public List<Empleado> getEmpleadoList() {
+        return empleados;
+    }
+
+    public void setEmpleadoList(List<Empleado> empleadoList) {
+        this.empleados = empleadoList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -171,10 +174,10 @@ public class Tipoplanillas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tipoplanillas)) {
+        if (!(object instanceof TipoPlanilla)) {
             return false;
         }
-        Tipoplanillas other = (Tipoplanillas) object;
+        TipoPlanilla other = (TipoPlanilla) object;
         if ((this.tplaId == null && other.tplaId != null) || (this.tplaId != null && !this.tplaId.equals(other.tplaId))) {
             return false;
         }
@@ -183,7 +186,7 @@ public class Tipoplanillas implements Serializable {
 
     @Override
     public String toString() {
-        return "cr.ac.una.unaplanilla.model.Tipoplanillas[ tplaId=" + tplaId + " ]";
+        return "cr.ac.una.unaplanilla.model.TipoPlanilla[ tplaId=" + tplaId + " ]";
     }
     
 }

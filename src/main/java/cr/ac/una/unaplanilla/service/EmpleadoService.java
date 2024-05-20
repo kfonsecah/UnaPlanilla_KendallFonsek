@@ -1,7 +1,7 @@
 package cr.ac.una.unaplanilla.service;
 
-import cr.ac.una.unaplanilla.model.Empleados;
-import cr.ac.una.unaplanilla.model.EmpleadosDto;
+import cr.ac.una.unaplanilla.model.Empleado;
+import cr.ac.una.unaplanilla.model.EmpleadoDto;
 import cr.ac.una.unaplanilla.util.EntityManagerHelper;
 import cr.ac.una.unaplanilla.util.Respuesta;
 import jakarta.persistence.EntityManager;
@@ -20,10 +20,10 @@ public class EmpleadoService {
     public Respuesta getUsuario(String usuario, String clave) {
         try
         {
-            Query qryUsuario = em.createNamedQuery("Empleado.findByUsuarioClave", Empleados.class);
+            Query qryUsuario = em.createNamedQuery("Empleado.findByUsuarioClave", Empleado.class);
             qryUsuario.setParameter("usuario", usuario);
             qryUsuario.setParameter("clave", clave);
-            EmpleadosDto empleadoDto = new EmpleadosDto((Empleados) qryUsuario.getSingleResult());
+            EmpleadoDto empleadoDto = new EmpleadoDto((Empleado) qryUsuario.getSingleResult());
             return new Respuesta(true, "", "", "Usuario", empleadoDto);
         } catch (NoResultException ex)
         {
@@ -42,9 +42,9 @@ public class EmpleadoService {
     public Respuesta getEmpleado(Long id) {
         try
         {
-            Query qryEmpleado = em.createNamedQuery("Empleado.findByEmpId", Empleados.class);
+            Query qryEmpleado = em.createNamedQuery("Empleado.findByEmpId", Empleado.class);
             qryEmpleado.setParameter("id", id);
-            EmpleadosDto empleadoDto = new EmpleadosDto((Empleados) qryEmpleado.getSingleResult());
+            EmpleadoDto empleadoDto = new EmpleadoDto((Empleado) qryEmpleado.getSingleResult());
             return new Respuesta(true, "", "", "Empleado", empleadoDto);
         } catch (NoResultException ex)
         {

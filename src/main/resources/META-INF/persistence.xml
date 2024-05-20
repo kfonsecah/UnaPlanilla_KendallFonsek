@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="3.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_3_2.xsd">
+<persistence version="3.2" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd">
   <persistence-unit name="UnaPlanillaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>cr.ac.una.unaplanilla.model.EmpleadosPlanilla</class>
-    <class>cr.ac.una.unaplanilla.model.Empleados</class>
-    <class>cr.ac.una.unaplanilla.model.Tipoplanillas</class>
+    <class>cr.ac.una.unaplanilla.model.Empleado</class>
+    <class>cr.ac.una.unaplanilla.model.TipoPlanilla</class>
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521/XEPDB1"/>
       <property name="jakarta.persistence.jdbc.user" value="una"/>

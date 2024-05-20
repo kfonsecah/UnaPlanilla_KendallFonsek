@@ -27,9 +27,9 @@ import java.time.LocalDate;
 @Table(name = "PLAM_EMPLEADOS", schema = "UNA")
 @NamedQueries(
         {
-            @NamedQuery(name = "Empleados.findAll", query = "SELECT e FROM Empleados e"),//revisar estas NamedQuery que esten bien escritas
-            @NamedQuery(name = "Empleados.findByEmpId", query = "SELECT e FROM Empleados e WHERE e.id = :id"),
-            @NamedQuery(name = "Empleados.findByUsuarioClave", query = "SELECT e FROM Empleados e WHERE e.usuario = :usuario AND e.clave = :clave"),
+            @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e"),//revisar estas NamedQuery que esten bien escritas
+            @NamedQuery(name = "Empleado.findByEmpId", query = "SELECT e FROM Empleado e WHERE e.id = :id"),
+            @NamedQuery(name = "Empleado.findByUsuarioClave", query = "SELECT e FROM Empleado e WHERE e.usuario = :usuario AND e.clave = :clave"),
         /* @NamedQuery(name = "Empleado.findByEmpNombre", query = "SELECT e FROM Empleado e WHERE e.empNombre = :empNombre"),
     @NamedQuery(name = "Empleado.findByEmpPapellido", query = "SELECT e FROM Empleado e WHERE e.empPapellido = :empPapellido"),
     @NamedQuery(name = "Empleado.findByEmpSapellido", query = "SELECT e FROM Empleado e WHERE e.empSapellido = :empSapellido"),
@@ -43,7 +43,7 @@ import java.time.LocalDate;
     @NamedQuery(name = "Empleado.findByEmpEstado", query = "SELECT e FROM Empleado e WHERE e.empEstado = :empEstado"),
     @NamedQuery(name = "Empleado.findByEmpVersion", query = "SELECT e FROM Empleado e WHERE e.empVersion = :empVersion")*/
         })
-public class Empleados implements Serializable {
+public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -91,21 +91,21 @@ public class Empleados implements Serializable {
     @Column(name = "EMP_VERSION")
     private Long version;
     @ManyToMany(mappedBy = "empleados", fetch = FetchType.LAZY)
-    private List<Tipoplanillas> tiposPlanilla;
+    private List<TipoPlanilla> tiposPlanilla;
 
-    public Empleados() {
+    public Empleado() {
     }
 
-    public Empleados(Long id) {
+    public Empleado(Long id) {
         this.id = id;
     }
 
-    public Empleados(EmpleadosDto empleadoDto) {
+    public Empleado(EmpleadoDto empleadoDto) {
         this.id = empleadoDto.getId();
         actualizar(empleadoDto);
     }
 
-    public void actualizar(EmpleadosDto empleadoDto) {
+    public void actualizar(EmpleadoDto empleadoDto) {
         this.nombre = empleadoDto.getNombre();
         this.primerApellido = empleadoDto.getPrimerApellido();
         this.segundoApellido = empleadoDto.getSegundoApellido();
@@ -233,11 +233,11 @@ public class Empleados implements Serializable {
         this.version = version;
     }
 
-    public List<Tipoplanillas> getTiposPlanilla() {
+    public List<TipoPlanilla> getTiposPlanilla() {
         return tiposPlanilla;
     }
 
-    public void setTiposPlanilla(List<Tipoplanillas> tiposPlanilla) {
+    public void setTiposPlanilla(List<TipoPlanilla> tiposPlanilla) {
         this.tiposPlanilla = tiposPlanilla;
     }
 
@@ -251,11 +251,11 @@ public class Empleados implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empleados))
+        if (!(object instanceof Empleado))
         {
             return false;
         }
-        Empleados other = (Empleados) object;
+        Empleado other = (Empleado) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
         {
             return false;
