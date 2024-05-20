@@ -45,7 +45,7 @@
                                              <Insets left="20.0" />
                                           </HBox.margin>
                                        </MFXButton>
-                                       <MFXButton fx:id="btnGuardar" onAction="#onActionBtnGuardar" text="Guardar">
+                                       <MFXButton fx:id="btnGuardar" onAction="#onActionBtnGuardar" styleClass="jfx-btn-Guardar" text="Guardar">
                                           <graphic>
                                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                                           </graphic>
@@ -53,7 +53,7 @@
                                              <Insets left="20.0" />
                                           </HBox.margin>
                                        </MFXButton>
-                                       <MFXButton fx:id="btnEliminar" onAction="#onActionBtnEliminar" text="Eliminar">
+                                       <MFXButton fx:id="btnEliminar" onAction="#onActionBtnEliminar" styleClass="jfx-btn-Eliminar" text="Eliminar">
                                           <graphic>
                                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                                           </graphic>
