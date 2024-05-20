@@ -233,10 +233,49 @@ public class EmpleadosController extends Controller implements Initializable {
 
     @FXML
     private void onActionBtnGuardar(ActionEvent event) {
-    }
+        try{
+            String invalidos = validarRequeridos();
+            if (!invalidos.isBlank()){
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Empleado", getStage(), invalidos);
+            } else {
+                EmpleadoService empleadoService = new EmpleadoService();
+                Respuesta respuesta = empleadoService.guardarEmpleado(empleadoDto);
+                if (respuesta.getEstado()){
+                   unbindEmpleado();
+                   this.empleadoDto = (EmpleadoDto) respuesta.getResultado("Empleado");
+                   bindEmpleado(false);
 
+                } else {
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Empleado", getStage(), respuesta.getMensaje());
+                }
+            }
+
+        }catch (Exception ex) {
+
+            Logger.getLogger(EmpleadosController.class.getName()).log(Level.SEVERE, "Error guardando el empleado.", ex);
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Empleado", getStage(), "Ocurrio un error guardando el empleado.");
+        }
+    }
     @FXML
     private void onActionBtnEliminar(ActionEvent event) {
+      try{
+          if(this.empleadoDto.getId()==null){
+              new Mensaje().showModal(Alert.AlertType.ERROR, "Eliminar Empleado", getStage(), "No se ha cargado un empleado para eliminar.");
+      } else {
+              EmpleadoService empleadoService = new EmpleadoService();
+              Respuesta respuesta = empleadoService.eliminarEmpleado(this.empleadoDto.getId());
+          if(respuesta.getEstado()){
+              nuevoEmpleado();
+              new Mensaje().showModal(Alert.AlertType.INFORMATION, "Eliminar Empleado", getStage(), "Empleado eliminado correctamente.");
+          }else {
+              new Mensaje().showModal(Alert.AlertType.ERROR, "Eliminar Empleado", getStage(), respuesta.getMensaje());
+          }
+          }
+
+      }catch (Exception ex){
+          Logger.getLogger(EmpleadosController.class.getName()).log(Level.SEVERE, "Error eliminando el empleado.", ex);
+          new Mensaje().showModal(Alert.AlertType.ERROR, "Eliminar Empleado", getStage(), "Ocurrio un error eliminando el empleado.");
+      }
     }
 
     @FXML
