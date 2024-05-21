@@ -115,6 +115,10 @@
     -fx-background-color: #010147;
 }
 
+.jfx-btnEmpleados:focused{
+    -fx-background-color: #010147;
+}
+
 .jfx-btnEmpleados:hover{
     -fx-background-color: #010147;
 }
@@ -134,6 +138,10 @@
 }
 
 .jfx-btnTipoPlanilla:armed{
+    -fx-background-color: #010147;
+}
+
+.jfx-btnTipoPlanilla:focused{
     -fx-background-color: #010147;
 }
 
