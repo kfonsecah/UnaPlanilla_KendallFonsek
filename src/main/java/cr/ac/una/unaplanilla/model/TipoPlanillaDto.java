@@ -23,10 +23,10 @@ public class TipoPlanillaDto {
 
     public TipoPlanillaDto() {
         this.modificado = false;
-        this.id = new SimpleStringProperty();
-        this.codigo = new SimpleStringProperty();
-        this.descripcion = new SimpleStringProperty();
-        this.planillasPorMes = new SimpleStringProperty();
+        this.id = new SimpleStringProperty("");
+        this.codigo = new SimpleStringProperty("");
+        this.descripcion = new SimpleStringProperty("");
+        this.planillasPorMes = new SimpleStringProperty("");
         this.estado = new SimpleBooleanProperty(true);
         empleados = FXCollections.observableArrayList();
         empleadosEliminados = new ArrayList<>();
@@ -141,7 +141,6 @@ public class TipoPlanillaDto {
 
     @Override
     public String toString() {
-        return "TipoPlanillaDto{" + "id=" + id.get() + ", codigo=" + codigo.getName() + '}';
+        return "cr.ac.una.unaplanilla.model.TipoPlanillaDto[ empId=" + id + " ]";
     }
-
 }

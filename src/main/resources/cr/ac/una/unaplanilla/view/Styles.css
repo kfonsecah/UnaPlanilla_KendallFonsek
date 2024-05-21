@@ -1,15 +1,4 @@
-*{
-    /* Constants */
-    -fx-base-color-focus: #09b6bc;
-    -fx-base-color-unfocus: #4d4d4d;
-    -fx-base-color-etiquetas: #4d4d4d;
-    -fx-base-color-titulos: #51b6cd;
-    -fx-base-color-error: #D34336;
-    -fx-base-color-id: #00C853;
 
-    -mfx-main: -fx-base-color-focus;
-    -mfx-purple: -fx-base-color-focus;
-}
 
 .jfx-panel-fondo{
     -fx-background-color: #2196F3;
@@ -154,4 +143,16 @@
 
 .jfx-banner>ImageView{
     -fx-image: url("../resources/bannerUNA.gif");
+}
+*{
+    /* Constants */
+    -fx-base-color-focus: #09b6bc;
+    -fx-base-color-unfocus: #4d4d4d;
+    -fx-base-color-etiquetas: #4d4d4d;
+    -fx-base-color-titulos: #51b6cd;
+    -fx-base-color-error: #D34336;
+    -fx-base-color-id: #00C853;
+
+    -mfx-main: -fx-base-color-focus;
+    -mfx-purple: -fx-base-color-focus;
 }

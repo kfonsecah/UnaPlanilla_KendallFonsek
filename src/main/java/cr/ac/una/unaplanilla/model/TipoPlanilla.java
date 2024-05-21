@@ -26,8 +26,9 @@ import jakarta.persistence.*;
 public class TipoPlanilla implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
+    @SequenceGenerator(name = "PLAM_TIPOPLANILLAS_TPLA_ID_GENERATOR", sequenceName = "UNA.PLAM_TIPOPLANILLAS_SEQ01", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLAM_TIPOPLANILLAS_TPLA_ID_GENERATOR")
     @Basic(optional = false)
     @Column(name = "TPLA_ID")
     private Long tplaId;
@@ -49,7 +50,7 @@ public class TipoPlanilla implements Serializable {
     @Basic(optional = false)
     @Column(name = "TPLA_ESTADO")
     private String tplaEstado;
-    @Basic(optional = false)
+    @Version
     @Column(name = "TPLA_VERSION")
     private Long tplaVersion;
     @JoinTable(name = "PLAM_EMPLEADOSPLANILLA", joinColumns = {

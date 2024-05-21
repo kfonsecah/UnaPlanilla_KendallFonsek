@@ -30,10 +30,7 @@ import jakarta.persistence.Query;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Carlos
- */
+
 public class TipoPlanillaService {
 
     EntityManager em = EntityManagerHelper.getInstance().getManager();
@@ -43,61 +40,16 @@ public class TipoPlanillaService {
         try {
             Query qryTipoPlanilla = em.createNamedQuery("TipoPlanilla.findByTplaId", TipoPlanilla.class);
             qryTipoPlanilla.setParameter("tplaId", id);
-
-            TipoPlanilla tipoPlanilla = (TipoPlanilla) qryTipoPlanilla.getSingleResult();
-            TipoPlanillaDto tipoPlanillaDto = new TipoPlanillaDto(tipoPlanilla);
-
-            for (Empleado emp : tipoPlanilla.getEmpleadoList()) {
-                tipoPlanillaDto.getEmpleados().add(new EmpleadoDto(emp));
-            }
+            TipoPlanillaDto tipoPlanillaDto = new TipoPlanillaDto((TipoPlanilla) qryTipoPlanilla.getSingleResult());
             return new Respuesta(true, "", "", "TipoPlanilla", tipoPlanillaDto);
-
         } catch (NoResultException ex) {
             return new Respuesta(false, "No existe un tipo de planilla con el código ingresado.", "getTipoPlanilla NoResultException");
         } catch (NonUniqueResultException ex) {
             Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, "Ocurrio un error al consultar el tipo de planilla.", ex);
             return new Respuesta(false, "Ocurrio un error al consultar el tipo de planilla.", "getTipoPlanilla NonUniqueResultException");
         } catch (Exception ex) {
-            Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, "Ocurrio un error al consultar el planilla.", ex);
-            return new Respuesta(false, "Ocurrio un error al consultar el tipo de planilla.", "getTipoPlanilla " + ex.getMessage());
-        }
-    }
-    public Respuesta getTipoPlanillas(String codigo,String descripcion,String planillaMes) {
-        try {
-            Query query = em.createNamedQuery("TipoPlanilla.findByCodigoDescripcionPlanillasPorMes",TipoPlanilla.class);
-            query.setParameter("codigo", codigo);
-            query.setParameter("descripcion", descripcion);
-            query.setParameter("planillasMes", planillaMes);
-            List<TipoPlanilla> tipoPlanilla = (List<TipoPlanilla>) query.getResultList();
-            List<TipoPlanillaDto> tipoPlanillaDto = new ArrayList<>();
-            for (TipoPlanilla tpl : tipoPlanilla) {
-                tipoPlanillaDto.add(new TipoPlanillaDto(tpl));
-            }
-            return new Respuesta(true, "", "", "Planillas", tipoPlanillaDto);
-        } catch (NoResultException ex) {
-            return new Respuesta(false, "No existen planillas con los criterios ingresados.", "getPlanillas NoResultException");
-        } catch (Exception ex) {
-            Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, "Error obteniendo planillas.", ex);
-            return new Respuesta(false, "Error obteniendo planillas.", "getPlanillas " + ex.getMessage());
-        }
-    }
-
-    public Respuesta getTipoPlanillasIDyCed(String idemp, String cedula) {
-        try {
-            Query query = em.createNamedQuery("TipoPlanilla.findByCedulaIDEmp",TipoPlanilla.class);
-            query.setParameter("id", idemp);
-            query.setParameter("cedula", cedula);
-            List<TipoPlanilla> tipoPlanilla = (List<TipoPlanilla>) query.getResultList();
-            List<TipoPlanillaDto> tipoPlanillaDto = new ArrayList<>();
-            for (TipoPlanilla tpl : tipoPlanilla) {
-                tipoPlanillaDto.add(new TipoPlanillaDto(tpl));
-            }
-            return new Respuesta(true, "", "", "Planillas", tipoPlanillaDto);
-        } catch (NoResultException ex) {
-            return new Respuesta(false, "No existen planillas con los criterios ingresados.", "getPlanillas NoResultException");
-        } catch (Exception ex) {
-            Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, "Error obteniendo planillas.", ex);
-            return new Respuesta(false, "Error obteniendo planillas.", "getPlanillas " + ex.getMessage());
+            Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, "Error obteniendo el tipo de planilla [" + id + "]", ex);
+            return new Respuesta(false, "Error obteniendo el tipo de planilla.", "getTipoPlanilla " + ex.getMessage());
         }
     }
 
@@ -113,35 +65,63 @@ public class TipoPlanillaService {
                     return new Respuesta(false, "No se encontró el tipo de planilla a modificar.", "guardarTipoPlanilla NoResultException");
                 }
                 tipoPlanilla.actualizarTipoPlanilla(tipoPlanillaDto);
-                for (EmpleadoDto emp : tipoPlanillaDto.getEmpleadosEliminados()) {
-                    tipoPlanilla.getEmpleadoList().remove(new Empleado(emp.getId()));
-                }
-                if (!tipoPlanillaDto.getEmpleados().isEmpty()) {
-                    for (EmpleadoDto emp : tipoPlanillaDto.getEmpleados()) {
-                        if (emp.isModificado()) {
-                            Empleado empleado = em.find(Empleado.class, emp.getId());
-                            empleado.getTiposPlanilla().add(tipoPlanilla);
-                            tipoPlanilla.getEmpleadoList().add(empleado);
-                        }
-                    }
-                }
                 tipoPlanilla = em.merge(tipoPlanilla);
             } else {
                 tipoPlanilla = new TipoPlanilla(tipoPlanillaDto);
                 em.persist(tipoPlanilla);
             }
             et.commit();
-            tipoPlanillaDto = new TipoPlanillaDto(tipoPlanilla);
-            for (Empleado emp : tipoPlanilla.getEmpleadoList()) {
-                tipoPlanillaDto.getEmpleados().add(new EmpleadoDto(emp));
-            }
-            return new Respuesta(true, "", "", "TipoPlanilla", tipoPlanillaDto);
+            return new Respuesta(true, "", "", "TipoPlanilla", new TipoPlanillaDto(tipoPlanilla));
         } catch (Exception ex) {
             et.rollback();
-            Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, "Ocurrio un error al guardar el tipo de planilla.", ex);
-            return new Respuesta(false, "Ocurrio un error al guardar el tipo de planilla.", "guardarTipoPlanilla " + ex.getMessage());
+            Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, "Error al guardar el tipo de planilla.", ex);
+            return new Respuesta(false, "Error al guardar el tipo de planilla.", "guardarTipoPlanilla " + ex.getMessage());
         }
     }
+
+
+
+//    public Respuesta guardarTipoPlanilla(TipoPlanillaDto tipoPlanillaDto) {
+//        try {
+//            et = em.getTransaction();
+//            et.begin();
+//            TipoPlanilla tipoPlanilla;
+//            if (tipoPlanillaDto.getId() != null && tipoPlanillaDto.getId() > 0) {
+//                tipoPlanilla = em.find(TipoPlanilla.class, tipoPlanillaDto.getId());
+//                if (tipoPlanilla == null) {
+//                    et.rollback();
+//                    return new Respuesta(false, "No se encontró el tipo de planilla a modificar.", "guardarTipoPlanilla NoResultException");
+//                }
+//                tipoPlanilla.actualizarTipoPlanilla(tipoPlanillaDto);
+//                for (EmpleadoDto emp : tipoPlanillaDto.getEmpleadosEliminados()) {
+//                    tipoPlanilla.getEmpleadoList().remove(new Empleado(emp.getId()));
+//                }
+//                if (!tipoPlanillaDto.getEmpleados().isEmpty()) {
+//                    for (EmpleadoDto emp : tipoPlanillaDto.getEmpleados()) {
+//                        if (emp.isModificado()) {
+//                            Empleado empleado = em.find(Empleado.class, emp.getId());
+//                            empleado.getTiposPlanilla().add(tipoPlanilla);
+//                            tipoPlanilla.getEmpleadoList().add(empleado);
+//                        }
+//                    }
+//                }
+//                tipoPlanilla = em.merge(tipoPlanilla);
+//            } else {
+//                tipoPlanilla = new TipoPlanilla(tipoPlanillaDto);
+//                em.persist(tipoPlanilla);
+//            }
+//            et.commit();
+//            tipoPlanillaDto = new TipoPlanillaDto(tipoPlanilla);
+//            for (Empleado emp : tipoPlanilla.getEmpleadoList()) {
+//                tipoPlanillaDto.getEmpleados().add(new EmpleadoDto(emp));
+//            }
+//            return new Respuesta(true, "", "", "TipoPlanilla", tipoPlanillaDto);
+//        } catch (Exception ex) {
+//            et.rollback();
+//            Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, "Ocurrio un error al guardar el tipo de planilla.", ex);
+//            return new Respuesta(false, "Ocurrio un error al guardar el tipo de planilla.", "guardarTipoPlanilla " + ex.getMessage());
+//        }
+//    }
 
     public Respuesta eliminarTipoPlanilla(Long id) {
         try {
@@ -163,7 +143,6 @@ public class TipoPlanillaService {
             return new Respuesta(true, "", "");
         } catch (Exception ex) {
             et.rollback();
-            //exeption for oracle
             if (ex.getMessage().contains("ORA-02292")) {
                 return new Respuesta(false, "No se puede eliminar el tipo de planilla porque tiene relaciones con otros registros.", "eliminarTipoPlanilla " + ex.getMessage());
             }
