@@ -1,0 +1,217 @@
+
+
+.jfx-panel-fondo{
+    -fx-background-color: #323354;
+    -fx-opacity: 0.8;
+}
+
+.jfx-panel-fondo > AnchorPane{
+    -fx-background-color: white;
+    -fx-border-color: #97a692;
+    -fx-border-width: 10px;
+}
+
+.jfx-contenedor-principal{
+    -fx-background-color: white;
+    -fx-background-radius: 4.0;
+    -fx-padding: 25 15 15 15;
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 10.0, 0.7, 0.0, 1.5);
+}
+
+.jfx-titulo-label{
+    -fx-font-size: 24px;
+    -fx-padding: 5 0 5 0;
+    -fx-text-fill: -fx-base-color-titulos;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 2, 0.0, 1, 2);
+}
+
+.mfx-text-field{
+    -mfx-float-mode: BORDER;
+    -fx-font-size: 14px;
+    -fx-pref-height: 40px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-alignment: TOP_LEFT;
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: -fx-base-color-etiquetas;
+}
+
+.jfx-btn-Nuevo > ImageView {
+    -fx-image: url("../resources/Agregar-48.png");
+}
+
+.jfx-btn-Buscar > ImageView {
+    -fx-image: url("../resources/Buscar-48.png");
+}
+
+.jfx-btn-Eliminar > ImageView {
+    -fx-image: url("../resources/Eliminar-48.png");
+}
+
+.jfx-btn-Guardar > ImageView {
+    -fx-image: url("../resources/Guardar-48.png");
+}
+
+.mfx-button{
+    -mfx-button-type: RAISED;
+    -fx-opacity: 0.8;
+    -fx-content-display: left;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.button:hover{
+    -fx-background-color: #FF6D00;
+}
+
+.jfx-btn-Nuevo{
+    -fx-background-color: #a2d1f0;
+}
+
+.jfx-btn-Buscar{
+    -fx-background-color: #40da98;
+}
+
+.jfx-btn-Eliminar{
+    -fx-background-color: #f35447;
+}
+
+.jfx-btn-Guardar, .jfx-btn-generar{
+    -fx-background-color: #4b4ddd;
+}
+
+.jfx-Salir, .jfx-Salir:armed, .jfx-Salir:focused {
+    -fx-background-color: #2196F3;
+}
+
+.jfx-menuIngresar, .jfx-menuIngresar:armed, .jfx-menuIngresar:focused {
+    -fx-background-color: #00C853;
+}
+
+.jfx-contenedor-menu{
+    -fx-background-color: white;
+    -fx-background-radius: 4.0;
+    -fx-padding: 2 8;
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 10.0, 0.7, 0.0, 1.5);
+}
+
+.jfx-btnEmpleados{
+    -fx-background-color: #070832;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 4.0;
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 10.0, 0.7, 0.0, 1.5);
+}
+
+.jfx-btnEmpleados > ImageView {
+    -fx-image: url("../resources/Empleado-48.png");
+}
+
+.jfx-btnEmpleados:armed{
+    -fx-background-color: #010147;
+}
+
+.jfx-btnEmpleados:focused{
+    -fx-background-color: #010147;
+}
+
+.jfx-btnEmpleados:hover{
+    -fx-background-color: #010147;
+}
+
+.jfx-btnTipoPlanilla{
+    -fx-background-color: #070832;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 4.0;
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 10.0, 0.7, 0.0, 1.5);
+}
+
+.jfx-btnTipoPlanilla > ImageView {
+    -fx-image: url("../resources/Planilla-48.png");
+}
+
+.jfx-btnTipoPlanilla:armed{
+    -fx-background-color: #010147;
+}
+
+.jfx-btnTipoPlanilla:focused{
+    -fx-background-color: #010147;
+}
+
+.jfx-btnTipoPlanilla:hover{
+    -fx-background-color: #010147;
+}
+
+.jfx-banner>ImageView{
+    -fx-image: url("../resources/bannerUNA.gif");
+}
+
+.jfx-btn-Cerrar{
+        -fx-background-color: #070832;
+        -fx-text-fill: white;
+        -fx-font-size: 14px;
+        -fx-font-weight: bold;
+        -fx-padding: 10 20;
+        -fx-background-radius: 4.0;
+        -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 10.0, 0.7, 0.0, 1.5);
+    }
+.jfx-btn-Cerrar:hover{
+    -fx-background-color: #010147;
+}
+.jfx-btn-Cerrar:armed{
+    -fx-background-color: #010147;
+}
+
+.jfx-btn-Cerrar:focused{
+    -fx-background-color: #010147;
+}
+
+.jfx-btn-Cerrar:hover{
+    -fx-background-color: #010147;
+}
+
+
+
+.jfx-btnSalir{
+    -fx-background-color: #630404;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 4.0;
+    -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 10.0, 0.7, 0.0, 1.5);
+}
+.jfx-btnSalir:hover{
+    -fx-background-color: #620404;
+}
+.jfx-btnSalir:armed{
+    -fx-background-color: #470404;
+}
+
+.jfx-btnSalir:focused{
+    -fx-background-color: #610404;
+}
+
+.jfx-btnSalir:hover{
+    -fx-background-color: #490707;
+}
+
+*{
+    /* Constants */
+    -fx-base-color-focus: #323354;
+    -fx-base-color-unfocus: #4d4d4d;
+    -fx-base-color-etiquetas: #4d4d4d;
+    -fx-base-color-titulos: #323354;
+    -fx-base-color-error: #D34336;
+    -fx-base-color-id: #00C853;
+
+    -mfx-main: -fx-base-color-focus;
+    -mfx-purple: -fx-base-color-focus;
+}
