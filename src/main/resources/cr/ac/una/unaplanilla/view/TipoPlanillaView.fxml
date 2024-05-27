@@ -15,15 +15,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="jfx-panel-fondo" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.unaplanilla.controller.TipoPlanillaController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="751.0" prefWidth="1036.0" styleClass="jfx-panel-fondo" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.unaplanilla.controller.TipoPlanillaController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="jfx-contenedor-principal" stylesheets="@Styles.css" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
          <children>
-            <VBox prefHeight="596.0" prefWidth="784.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox alignment="CENTER" prefHeight="596.0" prefWidth="784.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label styleClass="jfx-titulo-label" text="Control Tipos Planilla">
+                  <Label styleClass="jfx-titulo-label" text="Control Tipos Planilla" VBox.vgrow="ALWAYS">
                      <VBox.margin>
-                        <Insets left="260.0" />
+                        <Insets />
                      </VBox.margin>
                   </Label>
                   <StackPane prefHeight="600.0" prefWidth="758.0" styleClass="jfx-contenedor-principal">
@@ -54,7 +54,7 @@
                                                 <MFXTextField fx:id="txtNombreEmpleado" floatingText="Nombre Empleado" />
                                                 <TableView fx:id="tbvEmpleados">
                                                    <columns>
-                                                      <TableColumn fx:id="tbcCodigo" text="Código" />
+                                                      <TableColumn fx:id="tbcId" text="ID" />
                                                       <TableColumn fx:id="tbcNombre" text="Nombre" />
                                                       <TableColumn fx:id="tbcEliminar" text="Eliminar" />
                                                    </columns>
@@ -75,7 +75,7 @@
                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                         </graphic>
                      </MFXButton>
-                     <MFXButton fx:id="btnBuscar" styleClass="jfx-btn-Buscar" text="Buscar">
+                     <MFXButton fx:id="btnBuscar" onAction="#onActionBtnBuscar" styleClass="jfx-btn-Buscar" text="Buscar">
                         <graphic>
                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                         </graphic>

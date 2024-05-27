@@ -33,6 +33,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -63,7 +65,7 @@ public class TipoPlanillaController extends Controller implements Initializable 
     @FXML
     private TableView<EmpleadoDto> tbvEmpleados;
     @FXML
-    private TableColumn<EmpleadoDto, String> tbcCodigo;
+    private TableColumn<EmpleadoDto, String> tbcId;
     @FXML
     private TableColumn<EmpleadoDto, String> tbcNombre;
     @FXML
@@ -90,15 +92,62 @@ public class TipoPlanillaController extends Controller implements Initializable 
         txtCodigo.delegateSetTextFormatter(Formato.getInstance().maxLengthFormat(4));
         txtDescripcion.delegateSetTextFormatter(Formato.getInstance().letrasFormat(40));
         txtPlanillasMes.delegateSetTextFormatter(Formato.getInstance().integerFormat());
+        txtNombreEmpleado.delegateSetTextFormatter(Formato.getInstance().letrasFormat(20));
         tipoPlanillaDto = new TipoPlanillaDto();
         empleadoDto = new EmpleadoDto();
         nuevoTipoPlanilla();
         indicarRequeridos();
 
-        tbcCodigo.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tbvEmpleados.refresh();
+
+        tbcId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tbcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 
+
+        tbcEliminar.setCellFactory(param -> new TableCell<EmpleadoDto, Boolean>() {
+            private final MFXButton btnEliminar = new MFXButton();
+
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/cr/ac/una/unaplanilla/resources/Eliminar-48-red.png")));
+                    imageView.setFitHeight(40);
+                    imageView.setFitWidth(40);
+                    btnEliminar.setGraphic(imageView);
+                    btnEliminar.setText("\u200E");
+                    btnEliminar.rippleColorProperty().set(null);
+                    btnEliminar.setOnAction(event -> {
+                        EmpleadoService empleadoService = new EmpleadoService();
+                        Respuesta respuesta = empleadoService.eliminarEmpleado(getTableView().getItems().get(getIndex()).getId());
+                        //eliminar de la tabal
+                        if (respuesta.getEstado()) {
+                        getTableView().getItems().remove(getIndex());
+                        getTableView().refresh();
+    } else {
+        new Mensaje().showModal(Alert.AlertType.ERROR, "", getStage(), respuesta.getMensaje());
     }
+                    });
+                    setGraphic(btnEliminar);
+                }
+            }
+        });
+
+        cargarTodosLosEmpleados();
+    }
+
+//    EmpleadoService empleadoService = new EmpleadoService();
+//    Respuesta respuesta = empleadoService.eliminarEmpleado(getTableView().getItems().get(getIndex()).getId());
+//    //eliminar de la tabal
+//                        if (respuesta.getEstado()) {
+//        getTableView().getItems().remove(getIndex());
+//        getTableView().refresh();
+//    } else {
+//        new Mensaje().showModal(Alert.AlertType.ERROR, "Eliminar Empleado", getStage(), respuesta.getMensaje());
+//    }
 
     @Override
     public void initialize() {
@@ -160,6 +209,8 @@ public class TipoPlanillaController extends Controller implements Initializable 
         txtDescripcion.textProperty().bindBidirectional(tipoPlanillaDto.descripcion);
         txtPlanillasMes.textProperty().bindBidirectional(tipoPlanillaDto.planillasPorMes);
         chkActivo.selectedProperty().bindBidirectional(tipoPlanillaDto.estado);
+
+        cargarEmpleados();
     }
 
     private void unbindTipoPlanilla() {
@@ -229,36 +280,29 @@ public class TipoPlanillaController extends Controller implements Initializable 
     }
 
 
+
     @FXML
     private void onActionBtnBuscar(ActionEvent event) {
+        String nombre = txtNombreEmpleado.getText();
+        EmpleadoService empleadoService = new EmpleadoService();
+        Respuesta respuesta = empleadoService.buscarEmpleadosPorNombre(nombre);
 
-   }
-//@FXML
-//private void onActionBtnGuardar(ActionEvent event) {
-//    try {
-//        String invalidos = validarRequeridos();
-//        if (!invalidos.isEmpty()) {
-//            new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar tipo planilla", getStage(), invalidos);
-//        } else {
-//
-//            TipoPlanillaService service = new TipoPlanillaService();
-//            Respuesta respuesta = service.guardarTipoPlanilla(tipoPlanillaDto);
-//            if (!respuesta.getEstado()) {
-//                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar tipo planilla", getStage(), respuesta.getMensaje());
-//            } else {
-//                unbindTipoPlanilla();
-//                tipoPlanillaDto = (TipoPlanillaDto) respuesta.getResultado("TipoPlanilla");
-//                bindTipoPlanilla(false);
-//                nuevoEmpleado();
-//                cargarEmpleados();
-//                new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar tipo planilla", getStage(), "Tipo planilla actualizado correctamente.");
-//            }
-//        }
-//    } catch (Exception ex) {
-//        Logger.getLogger(TipoPlanillaController.class.getName()).log(Level.SEVERE, "Error guardando el tipo de planilla.", ex);
-//        new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar tipo planilla", getStage(), "Ocurrio un error guardando el tipo de planilla.");
-//    }
-//}
+        if (respuesta.getEstado()) {
+            List<EmpleadoDto> empleados = (List<EmpleadoDto>) respuesta.getResultado("Empleados");
+            tbvEmpleados.getItems().setAll(empleados);
+        } else {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Buscar Empleados", getStage(), respuesta.getMensaje());
+        }
+    }
+
+    private void refreshEmpleado() {
+        EmpleadoService empleadoService = new EmpleadoService();
+
+        empleadoService.getTodosLosEmpleados();
+        List<EmpleadoDto> empleados = (List<EmpleadoDto>) empleadoService.getTodosLosEmpleados().getResultado("Empleados");
+        tbvEmpleados.getItems().setAll(empleados);
+    }
+
 
     @FXML
     private void onActionBtnGuardar(ActionEvent event) {
@@ -307,5 +351,24 @@ public class TipoPlanillaController extends Controller implements Initializable 
             new Mensaje().showModal(Alert.AlertType.ERROR, "Eliminar tipo planilla", getStage(), "Se ha producido un error, contacte al administrador del sistema.");
         }
     }
+
+    private void cargarTodosLosEmpleados() {
+        EmpleadoService empleadoService = new EmpleadoService();
+        Respuesta respuesta = empleadoService.getTodosLosEmpleados();
+        if (respuesta.getEstado()) {
+            List<EmpleadoDto> empleados = (List<EmpleadoDto>) respuesta.getResultado("Empleados");
+            tbvEmpleados.getItems().setAll(empleados);
+        } else {
+            new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Empleados", getStage(), respuesta.getMensaje());
+        }
+    }
+
+    @FXML
+    void onActionTab(ActionEvent event) {
+        if (tbpInclusionEmpleados.isSelected()) {
+            cargarTodosLosEmpleados();
+        }
+    }
+
 
 }

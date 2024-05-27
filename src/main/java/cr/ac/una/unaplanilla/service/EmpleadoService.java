@@ -9,8 +9,11 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;
 import jakarta.persistence.Query;
+
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class EmpleadoService {
 
@@ -103,5 +106,49 @@ public class EmpleadoService {
             return new Respuesta(false, "Error al eliminar el empleado.", "eliminarEmpleado " + ex.getMessage());
         }
 
+    }
+
+
+    public Respuesta buscarEmpleadosPorNombre(String nombre) {
+        try {
+            Query query = em.createNamedQuery("Empleado.findByNombre", Empleado.class);
+            query.setParameter("empNombre", "%" + nombre + "%"); // Uso de comodines para la búsqueda parcial
+            List<Empleado> empleados = query.getResultList();
+            List<EmpleadoDto> empleadosDto = empleados.stream().map(EmpleadoDto::new).collect(Collectors.toList());
+            return new Respuesta(true, "", "", "Empleados", empleadosDto);
+        } catch (Exception ex) {
+            Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, "Error buscando empleados por nombre.", ex);
+            return new Respuesta(false, "Error buscando empleados por nombre.", "buscarEmpleadosPorNombre " + ex.getMessage());
+        }
+    }
+
+
+    public Respuesta getTodosLosEmpleados() {
+        try {
+            Query qryEmpleados = em.createNamedQuery("Empleado.findAll", Empleado.class);
+            List<Empleado> empleados = qryEmpleados.getResultList();
+            List<EmpleadoDto> empleadosDto = empleados.stream().map(EmpleadoDto::new).collect(Collectors.toList());
+            return new Respuesta(true, "", "", "Empleados", empleadosDto);
+        } catch (Exception ex) {
+            Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, "Error obteniendo todos los empleados.", ex);
+            return new Respuesta(false, "Error obteniendo todos los empleados.", "getTodosLosEmpleados " + ex.getMessage());
+        }
+    }
+
+    public String getCedulaporUser(String user) {
+        try {
+            Query qryUsuario = em.createNamedQuery("Empleado.findByUsuario", Empleado.class);
+            qryUsuario.setParameter("usuario", user);
+            EmpleadoDto empleadoDto = new EmpleadoDto((Empleado) qryUsuario.getSingleResult());
+            return empleadoDto.getCedula();
+        } catch (NoResultException ex) {
+            return "No existe un usuario con las credenciales ingresadas.";
+        } catch (NonUniqueResultException ex) {
+            Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, "Ocurrio un error al consultar el usuario.", ex);
+            return "Ocurrio un error al consultar el usuario.";
+        } catch (Exception ex) {
+            Logger.getLogger(EmpleadoService.class.getName()).log(Level.SEVERE, "Error obteniendo el usuario [" + user + "]", ex);
+            return "Error obteniendo el usuario.";
+        }
     }
 }

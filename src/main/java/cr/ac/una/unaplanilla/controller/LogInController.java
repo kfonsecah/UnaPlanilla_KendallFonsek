@@ -61,6 +61,7 @@ public class LogInController  extends Controller implements Initializable {
             if (respuesta.getEstado())
             {
                 AppContext.getInstance().set("Usuario", respuesta.getResultado("Usuario"));
+                AppContext.getInstance().set("User", txfUser.getText());
                 FlowController.getInstance().goMain();
                 Stage stage = (Stage) this.root.getScene().getWindow();
                 stage.close();
